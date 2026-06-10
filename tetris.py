@@ -24,11 +24,23 @@ figure_blocks = [[4, 0], [5, 0], [4, 1], [5, 1]]
 # Координата X, где заканчивается игровое поле (10 клеток * 30 пикселей = 300px)
 GAME_WIDTH = 10 * CELL_SIZE
 
+clock = pygame.time.Clock()
+FPS = 60
+
+FALL_EVENT = pygame.USEREVENT + 1
+pygame.time.set_timer(FALL_EVENT, 500)
+
 running = True
 while running:
+    clock.tick(FPS)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+        if event.type == FALL_EVENT:
+            for block in figure_blocks:
+                block[1] += 1
 
     # --- Отрисовка зон ---
     # 1. Закрытие левой части (игрового поля)
