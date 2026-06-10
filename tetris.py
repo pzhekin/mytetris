@@ -7,7 +7,15 @@ SCREEN_WIDTH = 15 * CELL_SIZE
 SCREEN_HEIGHT = 20 * CELL_SIZE
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('Tetris v 0.1')
+pygame.display.set_caption('Tetris v 0.2')
+
+# --- ОБНОВЛЕНИЕ: Цвета ---
+BLACK = (10, 10, 10) # Цвет для игрового поля (почти черный)
+DARK_GRAY = (40, 40, 40) # Цвет панели (серый)
+WHITE = (255, 255, 255) # Цвет для линии (белый)
+
+# Координата X, где заканчивается игровое поле (10 клеток * 30 пикселей = 300px)
+GAME_WIDTH = 10 * CELL_SIZE
 
 running = True
 while running:
@@ -15,7 +23,15 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill((0, 0, 0))
+    # --- Отрисовка зон ---
+    # 1. Закрытие левой части (игрового поля)
+    pygame.draw.rect(screen, BLACK, (0, 0, GAME_WIDTH, SCREEN_HEIGHT))
+
+    # 2. Закрашиваем правую чать серым
+    pygame.draw.rect(screen, DARK_GRAY, (GAME_WIDTH, 0, SCREEN_WIDTH - GAME_WIDTH, SCREEN_HEIGHT))
+
+    # 3. Риусую разделяющию белую линию
+    pygame.draw.line(screen, WHITE, (GAME_WIDTH, 0), (GAME_WIDTH, SCREEN_HEIGHT), 3)
 
     pygame.display.flip()
 
